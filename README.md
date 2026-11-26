@@ -55,7 +55,7 @@ Também são disponibilizados recursos de exportação e restauração manual po
 * Row Level Security (RLS): controle de acesso e isolamento de informações.
 * GitHub: versionamento e gerenciamento do código-fonte.
 
-## Publicação
+# Publicação
 
 Aplicação web desenvolvida para execução em navegadores modernos, com possibilidade de publicação por meio de hospedagem de arquivos estáticos.
 
@@ -64,6 +64,25 @@ A conexão com o Supabase permite que a aplicação utilize autenticação e ban
 Comercialização e modelo de assinatura
 
 A Gestão Integrada possui uma estrutura de autenticação, banco de dados remoto e separação de informações por grupo.
+
+# Capturas de tela
+
+## Visão geral
+![Visão geral](IMG_0669.png)
+
+## Gestão de colaboradores
+![Colaboradores](IMG_0670.png)
+
+## Controle financeiro
+![Financeiro](IMG_0671.png)
+
+Acesso à aplicação
+
+A Gestão Integrada possui uma versão publicada na web, destinada exclusivamente a usuários credenciados.
+
+O acesso é realizado mediante autenticação, com credenciais previamente autorizadas.
+ 
+[**Acessar Gestão Integrada**](https://financeiro.cabravier.workers.dev)
 
 # Auxílio de Inteligência Artificial
 
