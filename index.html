@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/png" sizes="180x180" href="/favicon.png?v=20261126-5">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261126-5">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111827">
+<title>GI</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<section id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-brand"><span id="login-brand-name">GI</span></div>
+    <p class="eyebrow">ÁREA RESTRITA</p>
+    <h1 id="auth-title">Bem-vindo de volta</h1>
+    <p class="login-subtitle" id="auth-subtitle">Entre com seu e-mail autorizado para acessar o painel.</p>
+    <div class="auth-options" role="tablist" aria-label="Opções de acesso">
+      <button type="button" class="auth-option active" id="auth-login" role="tab" aria-selected="true">Entrar</button>
+      <button type="button" class="auth-option" id="auth-signup" role="tab" aria-selected="false">Criar conta</button>
+      <button type="button" class="auth-option" id="auth-recovery" role="tab" aria-selected="false">Recuperar senha</button>
+    </div>
+    <form id="login-form" novalidate>
+      <label class="auth-field">E-mail
+        <input id="login-email" type="email" autocomplete="username" placeholder="seuemail@exemplo.com" required>
+      </label>
+      <label class="auth-field" id="password-field">Senha
+        <input id="login-password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required>
+      </label>
+      <p class="auth-hint" id="auth-hint">Apenas e-mails previamente autorizados podem acessar este painel.</p>
+      <button class="button primary full auth-submit" id="login-submit" type="submit">Entrar no painel <span aria-hidden="true">→</span></button>
+    </form>
+    <p id="login-message" role="status" aria-live="polite"></p>
+    <div class="login-foot"><span class="secure-dot"></span> Conexão protegida · Acesso controlado</div>
+    <div class="login-legal"><strong>Documentos legais</strong><span><a href="termos.html">Termos de Uso</a> · <a href="privacidade.html">Política de Privacidade</a></span></div>
+  </div>
+</section><div id="app-shell" hidden>
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark" id="app-brand-mark">CV</span><span id="app-brand-name">Cabravier</span></a><div class="top-actions"><span>Gestão de equipe e caixa</span><button id="export-backup" class="header-btn">Backup</button><button id="import-backup" class="header-btn">Restaurar</button><input id="backup-file" type="file" accept="application/json" hidden></div></header>
+<main class="container">
+<div class="welcome"><div><p class="eyebrow">GI</p><h1>Painel Geral</h1><p class="muted">Sua equipe e suas finanças, no mesmo lugar.</p></div><label class="month-picker">Período <input id="period" type="month"></label></div>
+<nav class="tabs"><button class="tab active" data-tab="overview">Visão geral</button><button class="tab" data-tab="employees">Colaboradores</button><button class="tab" data-tab="finance">Financeiro</button><button class="tab" data-tab="charts">Gráficos</button></nav>
+<div id="payment-alerts" class="payment-alerts" aria-live="polite" hidden></div>
+
+<section id="clients" class="view" hidden>
+  <div class="section-head"><div><h2>Clientes</h2><p class="muted">Sua carteira de clientes e projetos.</p></div><button class="button primary" id="add-client">＋ Novo cliente</button></div>
+  <div class="summary compact"><article class="metric"><span>Clientes ativos</span><strong id="client-active-count">0</strong></article><article class="metric"><span>Clientes inativos</span><strong id="client-inactive-count">0</strong></article><article class="metric"><span>Em negociação</span><strong id="client-prospect-count">0</strong></article><article class="metric"><span>Total a receber</span><strong id="client-pending-total">R$ 0,00</strong></article></div>
+  <div class="panel"><div class="panel-head"><label class="search">⌕ <input id="client-search" type="search" placeholder="Buscar cliente, serviço ou contato"></label></div><div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Serviço / projeto</th><th>Contato</th><th>Valor combinado</th><th>Status</th><th>Ações</th></tr></thead><tbody id="clients-list"></tbody></table></div><p id="clients-empty" class="empty">Nenhum cliente cadastrado.</p></div>
+</section>
+<section id="receivables" class="view" hidden>
+  <div class="section-head"><div><h2>Recebimentos</h2><p class="muted">Acompanhe valores previstos, recebidos e em atraso.</p></div><button class="button primary" id="add-receivable">＋ Agendar recebimento</button></div>
+  <div class="summary compact"><article class="metric"><span>A receber</span><strong id="receivable-pending">R$ 0,00</strong></article><article class="metric"><span>Recebido neste mês</span><strong id="receivable-paid">R$ 0,00</strong></article><article class="metric"><span>Em atraso</span><strong id="receivable-overdue">0</strong></article></div>
+  <div class="panel"><div class="receivable-date-filters"><label>De <input id="receivable-date-from" type="date"></label><label>Até <input id="receivable-date-to" type="date"></label><button class="button secondary" id="clear-receivable-dates" type="button">Limpar datas</button></div><div class="table-wrap"><table><thead><tr><th>Cliente / serviço</th><th>Data prevista</th><th>Valor</th><th>Status</th><th>Ações</th></tr></thead><tbody id="receivables-list"></tbody></table></div><p id="receivables-empty" class="empty">Nenhum recebimento encontrado neste período.</p></div>
+</section>
+<section id="overview" class="view">
+<div class="summary"><article class="metric"><span>Saldo do período</span><strong id="balance">R$ 0,00</strong><small>Receitas menos despesas</small></article><article class="metric"><span>Receitas</span><strong class="positive" id="income">R$ 0,00</strong><small>Entradas registradas</small></article><article class="metric"><span>Despesas</span><strong class="negative" id="expense">R$ 0,00</strong><small>Inclui folha de pagamento</small></article><article class="metric"><span>Folha paga</span><strong id="payroll">R$ 0,00</strong><small>Pagamentos lançados no período</small></article></div>
+<div class="quick-grid"><article class="panel quick"><div class="quick-icon">♙</div><h2>Equipe</h2><p id="team-summary">Cadastre colaboradores, salários e acompanhe os pagamentos.</p><button class="button secondary" data-go="employees">Gerenciar colaboradores</button></article><article class="panel quick"><div class="quick-icon money-icon">↗</div><h2>Financeiro</h2><p>Organize receitas, despesas, categorias e fluxo de caixa.</p><button class="button secondary" data-go="finance">Abrir financeiro</button></article></div>
+<div class="section-head"><div><h2>Últimas movimentações</h2><p class="muted">Atividade financeira mais recente.</p></div><button class="text-button" data-go="finance">Ver todas →</button></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>Descrição</th><th>Categoria</th><th>Data / vencimento</th><th>Valor</th></tr></thead><tbody id="recent"></tbody></table></div><p id="recent-empty" class="empty">Nenhuma movimentação neste período.</p></div>
+</section>
+<section id="charts" class="view" hidden>
+<div class="section-head charts-heading"><div><h2>Indicadores visuais</h2><p class="muted">Entenda a movimentação do dinheiro sem complicação.</p></div><span class="charts-period" id="charts-period-label"></span></div><div class="chart-grid"><article class="panel chart-panel chart-wide"><div class="chart-title"><div><h3>Entradas x saídas</h3><p>Comparação dos últimos seis meses.</p></div><span class="chart-key"><i class="key-income"></i> Entradas <i class="key-expense"></i> Saídas</span></div><div id="cashflow-chart" class="cashflow-chart" role="img" aria-label="Gráfico de entradas e saídas dos últimos seis meses"></div><p class="chart-note">Somente valores efetivamente registrados. Agendamentos não entram nesta comparação.</p></article><article class="panel chart-panel"><div class="chart-title"><div><h3>Para onde vai o dinheiro?</h3><p>Despesas por categoria no período selecionado.</p></div></div><div id="category-chart" class="category-chart" role="img" aria-label="Despesas agrupadas por categoria"></div></article><article class="panel chart-panel"><div class="chart-title"><div><h3>Resumo do período</h3><p>Resultado das movimentações selecionadas.</p></div></div><div id="period-chart" class="period-chart"></div></article></div>
+</section>
+<section id="employees" class="view" hidden>
+<div class="section-head"><div><h2>Colaboradores</h2><p class="muted">Cadastro, remuneração e pagamentos da equipe.</p></div><button class="button primary" id="add-employee">＋ Novo colaborador</button></div>
+
+<div class="summary compact"><article class="metric"><span>Ativos</span><strong id="active-count">0</strong></article><article class="metric"><span>Salários previstos</span><strong id="salary-total">R$ 0,00</strong></article><article class="metric"><span>Folha paga no mês</span><strong id="payroll-total">R$ 0,00</strong></article></div>
+<div class="panel"><div class="panel-head"><label class="search">⌕ <input id="employee-search" type="search" placeholder="Buscar nome, função ou setor"></label></div><div class="table-wrap"><table><thead><tr><th>Colaborador</th><th>Função</th><th>Projeto / setor</th><th>Salário</th><th>Status</th><th>Pagamento no mês</th><th>Ações</th></tr></thead><tbody id="employees-list"></tbody></table></div><p id="employees-empty" class="empty">Nenhum colaborador cadastrado.</p></div>
+</section>
+<section id="finance" class="view" hidden>
+<div class="section-head"><div><h2>Financeiro</h2><p class="muted">Entradas, saídas e histórico do negócio.</p></div><button class="button primary" id="add-transaction">＋ Movimentação</button></div>
+<div id="scheduled-payments-summary" class="scheduled-summary" aria-live="polite"></div>
+<div class="panel filters"><label>Tipo<select id="filter-type"><option value="all">Todos</option><option value="income">Receitas</option><option value="expense">Despesas</option></select></label><label>Categoria<select id="filter-category"><option value="all">Todas as categorias</option></select></label><label>De <input id="filter-date-from" type="date"></label><label>Até <input id="filter-date-to" type="date"></label><label class="search">⌕ <input id="finance-search" type="search" placeholder="Buscar descrição"></label><div class="filter-actions"><button class="button secondary" id="export-csv">Exportar CSV</button><button class="button danger" id="clear-history" type="button">Limpar histórico</button></div></div>
+<div class="panel"><div class="table-wrap"><table><thead><tr><th>Descrição</th><th>Categoria</th><th>Data</th><th>Origem</th><th>Tipo</th><th>Status</th><th class="right">Valor</th><th>Ações</th></tr></thead><tbody id="transactions"></tbody></table></div><p id="transactions-empty" class="empty">Nenhuma movimentação encontrada.</p></div>
+</section>
+</main>
+
+<dialog id="client-dialog"><form id="client-form"><div class="dialog-head"><div><p class="eyebrow">CARTEIRA DE CLIENTES</p><h2 id="client-title">Novo cliente</h2></div><button type="button" class="close" data-close="client-dialog">×</button></div>
+<label>Nome do cliente<input id="client-name" maxlength="120" required></label>
+<div class="form-row"><label>Serviço / projeto<input id="client-service" maxlength="100" placeholder="Ex.: Desenvolvimento de site"></label><label>Valor combinado (R$)<input id="client-value" type="number" min="0" step=".01" value="0"></label></div>
+<div class="form-row"><label>E-mail<input id="client-email" type="email" maxlength="160"></label><label>WhatsApp / telefone<input id="client-phone" maxlength="30"></label></div>
+<label>Observações<input id="client-notes" maxlength="500"></label><label>Status<select id="client-status"><option value="active">Ativo</option><option value="pending">Pendente</option><option value="inactive">Inativo</option></select></label><button class="button primary full">Salvar cliente</button></form></dialog>
+<dialog id="receivable-dialog"><form id="receivable-form"><div class="dialog-head"><div><p class="eyebrow">CONTROLE FINANCEIRO</p><h2>Agendar recebimento</h2></div><button type="button" class="close" data-close="receivable-dialog">×</button></div>
+<label>Cliente<select id="receivable-client" required></select></label><label>Descrição / parcela<input id="receivable-description" maxlength="120" placeholder="Ex.: Site institucional — 2ª parcela" required></label>
+<div class="form-row"><label>Valor (R$)<input id="receivable-amount" type="number" min=".01" step=".01" required></label><label>Data prevista<input id="receivable-date" type="date" required></label></div>
+<label>Observação<input id="receivable-note" maxlength="180"></label><button class="button primary full">Salvar agendamento</button></form></dialog>
+<dialog id="employee-dialog"><form id="employee-form"><div class="dialog-head"><div><p class="eyebrow">EQUIPE</p><h2 id="employee-title">Novo colaborador</h2></div><button type="button" class="close" data-close="employee-dialog">×</button></div><label>Nome completo<input id="employee-name" maxlength="120" required></label><div class="form-row"><label>Função / cargo<input id="employee-role" maxlength="80" required></label><label>Projeto / setor<input id="employee-project" maxlength="80"></label></div><div class="form-row"><label>Salário mensal (R$)<input id="employee-salary" type="number" min="0" step=".01" required></label><label>Status<select id="employee-status"><option value="active">Ativo</option><option value="inactive">Inativo</option></select></label></div><button class="button primary full">Salvar colaborador</button></form></dialog>
+<dialog id="pay-dialog"><form id="pay-form"><div class="dialog-head"><div><p class="eyebrow">FOLHA DE PAGAMENTO</p><h2>Registrar pagamento</h2></div><button type="button" class="close" data-close="pay-dialog">×</button></div><p id="pay-info" class="pay-info"></p><label>Competência<input id="pay-month" type="month" required></label><div class="form-row"><label>Valor pago (R$)<input id="pay-amount" type="number" min=".01" step=".01" required></label><label>Data de vencimento / pagamento<input id="pay-date" type="date" required></label></div><label>Observação<input id="pay-note" maxlength="100" placeholder="Ex.: adiantamento, parcela..."></label><button class="button primary full">Confirmar pagamento e lançar no financeiro</button></form></dialog>
+<dialog id="transaction-dialog"><form id="transaction-form"><div class="dialog-head"><div><p class="eyebrow">FINANCEIRO</p><h2 id="transaction-title">Nova movimentação</h2></div><button type="button" class="close" data-close="transaction-dialog">×</button></div><label>Descrição<input id="transaction-description" maxlength="120" required></label><div class="form-row"><label>Valor (R$)<input id="transaction-amount" type="number" min=".01" step=".01" required></label><label>Tipo<select id="transaction-type"><option value="expense">Despesa</option><option value="income">Receita</option></select></label></div><div class="form-row"><label>Categoria<select id="transaction-category"><option>Projeto arquitetônico</option><option>Projeto de interiores</option><option>Projetos complementares</option><option>Consultoria</option><option>Acompanhamento de obra</option><option>Laudos e vistorias</option><option>Regularização e aprovação</option><option>Levantamento técnico</option><option>Renderização 3D</option><option>Honorários profissionais</option><option>Materiais e impressão</option><option>Softwares e equipamentos</option><option>Deslocamento</option><option>Terceiros e fornecedores</option><option>Taxas e impostos</option><option>Despesas de escritório</option><option>Marketing</option><option>Salários / pró-labore</option><option>Outros</option></select></label><label>Data<input id="transaction-date" type="date" required></label></div><label>Observação<input id="transaction-note" maxlength="180"></label><button class="button primary full">Salvar movimentação</button></form></dialog>
+<footer>
+  <small>© <span id="currentYear"></span> <span id="footer-brand">Cabravier</span>. Todos os direitos reservados.</small><nav id="legal-footer" class="legal-footer" aria-label="Documentos legais"><a href="termos.html">Termos de Uso</a><a href="privacidade.html">Política de Privacidade</a></nav>
+</footer>
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+<div id="toast" role="status" aria-live="polite"></div><button id="logout-button" class="logout-button" type="button">Sair</button></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0"></script><script src="script.js"></script>
+</body></html>
