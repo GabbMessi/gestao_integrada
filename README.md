@@ -67,8 +67,8 @@ A Gestão Integrada possui uma estrutura de autenticação, banco de dados remot
 
 # Auxílio de Inteligência Artificial
 
-O uso de diferentes modelos de Inteligência Artificial, IA, foi utilizado no desenvolvimento para diferentes tarefas:
+Diferentes modelos e ferramentas de Inteligência Artificial foram utilizados como apoio durante o desenvolvimento, cada um contribuindo para etapas específicas do projeto.
 
-* Cloud Code: para correção de bugs e sintaxe no código.
-* ChatGPT: como auxílio no layout do site.
-* Gemini: para estudos de sites existentes, para servir como inspiração.
+* Claude Code: auxílio na análise do código, correção de bugs, identificação de problemas e ajustes de sintaxe.
+* ChatGPT: apoio na concepção, organização e aprimoramento do layout e da experiência de utilização.
+* Gemini: estudos e análises de sites existentes, utilizados como referências e inspiração para decisões de design e funcionalidades.
