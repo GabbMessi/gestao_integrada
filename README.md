@@ -65,3 +65,10 @@ Comercialização e modelo de assinatura
 
 A Gestão Integrada possui uma estrutura de autenticação, banco de dados remoto e separação de informações por grupo.
 
+# Auxílio de Inteligência Artificial
+
+O uso de diferentes modelos de Inteligência Artificial, IA, foi utilizado no desenvolvimento para diferentes tarefas:
+
+* Cloud Code: para correção de bugs e sintaxe no código.
+* ChatGPT: como auxílio no layout do site.
+* Gemini: para estudos de sites existentes, para servir como inspiração.
