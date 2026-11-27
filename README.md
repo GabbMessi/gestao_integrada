@@ -61,8 +61,6 @@ Aplicação web desenvolvida para execução em navegadores modernos, com possib
 
 A conexão com o Supabase permite que a aplicação utilize autenticação e banco de dados remoto sem depender exclusivamente do armazenamento local do navegador.
 
-Comercialização e modelo de assinatura
-
 A Gestão Integrada possui uma estrutura de autenticação, banco de dados remoto e separação de informações por grupo.
 
 # Capturas de tela
